@@ -1,0 +1,50 @@
+{
+  "name": "gatsby-starter-default-typescript",
+  "private": true,
+  "description": "A simple starter to get up and developing quickly with Gatsby and TypeScript",
+  "version": "0.1.0",
+  "author": "Adrien Antoine <adriantoine@gmail.com>",
+  "dependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-transform-typescript": "^7.7.2",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-helmet": "^5.0.14",
+    "gatsby": "^2.17.7",
+    "gatsby-image": "^2.2.30",
+    "gatsby-plugin-manifest": "^2.2.26",
+    "gatsby-plugin-offline": "^3.0.17",
+    "gatsby-plugin-react-helmet": "^3.1.13",
+    "gatsby-plugin-sharp": "^2.2.36",
+    "gatsby-plugin-typescript": "^2.1.15",
+    "gatsby-source-filesystem": "^2.1.35",
+    "gatsby-transformer-sharp": "^2.3.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-helmet": "^5.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "typescript": "^3.7.2"
+  },
+  "keywords": [
+    "gatsby",
+    "typescript"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adriantoine/gatsby-starter-default-typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/adriantoine/gatsby-starter-default-typescript/issues"
+  }
+}
