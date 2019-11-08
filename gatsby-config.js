@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `adrien.codes`,
     description: `Personal blog`,
-    author: `@adroamtpome`,
+    author: `@adriantoine`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -24,7 +24,7 @@ module.exports = {
         background_color: `#343a40`,
         theme_color: `#343a40`,
         display: `minimal-ui`,
-        icon: `src/images/me.png`,
+        icon: `src/images/me.jpg`,
       },
     },
     `gatsby-plugin-typescript`,
