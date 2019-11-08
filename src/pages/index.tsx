@@ -23,9 +23,27 @@ const IndexPage = () => (
       </h1>
 
       <div className="flex justify-between w-40 mt-6">
-        <IconTwitter className="h-8 w-8" />
-        <IconGitHub className="h-8 w-8" />
-        <IconLinkedIn className="h-8 w-8" />
+        <a
+          className="hover:text-blue-500"
+          href="https://twitter.com/adriantoine"
+          target="_blank"
+        >
+          <IconTwitter className="h-8 w-8" />
+        </a>
+        <a
+          className="hover:text-black"
+          href="https://github.com/adriantoine"
+          target="_blank"
+        >
+          <IconGitHub className="h-8 w-8" />
+        </a>
+        <a
+          className="hover:text-blue-700"
+          href="https://linkedin.com/in/adriantoine"
+          target="_blank"
+        >
+          <IconLinkedIn className="h-8 w-8" />
+        </a>
       </div>
     </div>
   </Layout>
