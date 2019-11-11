@@ -1,0 +1,82 @@
+---
+title: Feedback on one and a half years in the front end world
+path: /feedback-on-one-and-a-half-years-in-the-front-end-world
+date: 2019-11-11
+synopsis: Insights and opinions after building and maintaining a professional financial app in the React world
+---
+
+I worked for one year and a half on the same React application that I kickstarted. As I left the company and stopped working on it in May, it’s now an excellent time to write about all the takeaways I have from this experience. It’s all about UI development and about decisions I (or we, as a team) made whether they had a positive or negative outcome.
+
+Those points are made to be succinct, I’ll turn a few points I like into their own blog posts when I have time.
+
+## Write scalable maintainable code with a design system
+
+**Making a web app is hard but maintaining it is even harder.** You should write your code to be **disposable** and **recyclable** if you want to cope with the infernal pace required by quick and drastic design changes. Those will and should happen no matter the type of project management you are using.
+
+A design system is a set of extremely generic components like a `Box` component that can be easily styled only with JSX props. You end up with code like this:
+
+```js
+<Box marginTop="10px" marginBottom="20px" borderBottom="1px solid blue">
+  <Flex>
+    <Text fontWeight="bold">Hello</Text>
+    <Text color="red">World</Text>
+  </Flex>
+<Box>
+```
+
+It makes it much easier to update a layout, you can add or remove boxes, elements, style properties without losing the context.
+The performance is good enough in 99% of the cases but not optimal. If one part of your application is slow, optimise just that one not everything. You don’t need every single `div` of your application to be extremely fast, **you do need them to be extremely easy to maintain**.
+
+You can use variables if your designer has a predefined set of colours and font sizes. I recommend [Styled System](https://styled-system.com/) to create your own design system, so you can feed whichever style variables you want through your whole app.
+
+## Cypress, the ultimate UI testing tool
+
+[Cypress.io](https://www.cypress.io/) provides tools and interfaces to make visual UI tests easy to write and debug. It caught many regression bugs for us and worked well with our CI pipeline. Cypress takes screenshots and videos of every failure, so it’s easy to reproduce bugs. This tool was my best discovery during my time at the company.
+
+I could feel the sense of security while developing, knowing that Cypress would catch regressions. Writing tests was also straightforward since they provide an easy-to-use API which is easy to extend.
+
+## Unit tests double the amount of code
+
+Requirements and designs will change potentially very often. When you are writing a unit test, keep in mind that they are going to change as often as the code they are testing then ask yourself if you need this unit test. **Unit tests are extra code to maintain so make sure that they are useful, and that you know which bugs you want them to catch.** If your component looks like this:
+
+```js
+const MyComponent = () => {
+  return (
+    <div>This component only renders the introduction text of my website.</div>
+  )
+}
+```
+
+You probably don’t need a unit test. You can think a unit test doesn’t hurt so you could add a test checking for typos in the text, [please don’t](https://www.philosophicalhacker.com/post/maybe-dont-write-that-test/). If you do that's going to be one string to update twice in two different files every time this text changes. If the markup is more complex than this, every time you change the layout, you’ll have to update your tests. Don’t write test just for the sake of having 100% coverage. You want to catch bugs.
+
+Write unit tests for components that are widely reused throughout your application because if you update it in a specific use case, it might break others. Although, if your component is only a [styled component](https://www.styled-components.com/), maybe don’t. **It’s fine to remove unit tests if you think they don’t provide any value.**
+
+## A bad unit test is worse than no unit test
+
+Keep in mind that you are going to refactor your application many times. For example, [you want to remove Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367), you want to use [hooks](https://reactjs.org/docs/hooks-intro.html), or you want to switch to [CSS-in-JS](https://medium.com/dailyjs/what-is-actually-css-in-js-f2f529a2757). It might require to rewrite many unit tests.
+
+**Test the business logic rather than the markup.** If the numbers are not correct, or if the menu doesn’t open, it’s a bigger problem than a misplaced `div`. I usually isolate business logic from the view as much as possible, so that I can test them separately. If you have tricky algorithms in your business logic, unit tests are also a suitable way to optimise them and expect the same results.
+
+## Specific code styles don’t matter, but you need guidelines
+
+I don’t care whether you prefer spaces or tabs, but a whole codebase has to use either one or the other. It doesn’t matter if you like file names to be [kebab cased or pascal cased](https://medium.com/better-programming/string-case-styles-camel-pascal-snake-and-kebab-case-981407998841), if you like one component per file or your styles next to your component but **make sure your whole codebase is consistent in using one particular style**. Enforce it in code reviews, use tools like [Eslint](https://eslint.org/), provide tools like [Prettier](https://prettier.io/) and make sure everyone uses them.
+
+The main reason is that it makes your codebase easier to apprehend for newcomers whether they are junior or senior. You can get used to any style possible after a while. You don’t need company-wide guidelines although it’s easier to switch from a project to another if you have them.
+
+## There’s nothing wrong global state (nor with Redux)
+
+I remember when a “You might not need Redux” movement kicked off. Many people complained on Twitter about boilerplates, about its verbosity, about the difficulty to include it in a project, Dan Abramov wrote that [blog post](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367) and everyone was going for alternatives like [Unstated](https://github.com/jamiebuilds/unstated) or the good old `setState`. I could totally relate to all that, so I just replaced Redux by a mix of setState and Context in many parts of our application.
+
+I started isolating trees of data, creating several local states, disconnected from our Redux store starting with elements that I thought would never be connected. For example, let’s say there is a dropdown menu in the header and tabs on the main page. We could split the states apart in different trees updated by a `setState` call and spread by Context. Remember the first paragraph: **your application will often change drastically all along its lifetime**. Our designer now decides that the menu in the header should be on the main page, and one of its options depends on your selected tab. The tab and the dropdown menu are now interdependent. We now have to refactor parts of the page to have those two states available in the same place. It took me a few hours to figure it out. Although if everything were already in a single store, it would have taken me less than an hour to move a few components around.
+
+In this case, **leaving everything in Redux was the right thing to do to keep our website maintainable**. I'm not trying to sell Redux here and it might not be the most relevant example. You can use any other tool or a mix of `useState`, `useReducer` and `useContext` but having a globally available state is helpful to make your application maintainable.
+
+## Take other people’s opinions with a pinch of salt
+
+Don’t make decisions based on other people’s experience of entirely different applications. One thing can be right for one app and wrong for another one. When you read articles and tweets, **you should learn from the process leading them to an opinion, do not just take their conclusion as a general truth**. You should be even more careful when they are very persuasive and adopt a tone of “you _should_/_shouldn’t_ do this”. This advice is relevant to this article as well. I might change my mind on many of the opinions expressed in this post. **Open-mindedness is possibly the most valuable skill a software developer can have**.
+
+## Conclusion
+
+https://twitter.com/sambreed/status/1183422226776768512
+
+New front end coding trends, breaking changes in a library update, project design tweaks, API updates, those will inevitably occur, and you can’t blame anyone for that. Whatever you’re building, **keep an open mind** and **think about long term design and maintainability first**.

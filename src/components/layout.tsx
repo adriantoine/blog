@@ -8,8 +8,8 @@
 import React from "react"
 
 const Layout: React.FC = ({ children }) => (
-  <div>
-    <main className="container m-auto">{children}</main>
+  <div className="mx-8">
+    <div className="container m-auto">{children}</div>
   </div>
 )
 
