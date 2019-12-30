@@ -68,7 +68,11 @@ module.exports = {
         fonts: [
           {
             family: `Merriweather`,
-            variants: [`400`],
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Lora`,
+            variants: [`400`, `700`],
           },
         ],
       },

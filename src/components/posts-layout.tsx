@@ -15,9 +15,7 @@ const Layout: React.FC<Props> = ({ children, pageContext }) => {
       />
       <article className="container m-auto max-w-3xl mt-16 mb-32">
         <header>
-          <h1 className="leading-tight text-blue-600 font-serif text-4xl">
-            {pageContext.frontmatter.title}
-          </h1>
+          <h1 className="article-title">{pageContext.frontmatter.title}</h1>
           <small className="text-gray-500 text-sm">
             {format(new Date(pageContext.frontmatter.date), "MMMM dd, yyyy")}
           </small>

@@ -5,7 +5,6 @@
 html,
 body {
   -webkit-font-smoothing: subpixel-antialiased;
-  color: #343a40;
 }
 
 h1 {
@@ -21,10 +20,18 @@ a {
   font-size: 0.9rem;
 }
 
+.article-title {
+  @apply leading-tight text-blue-700 font-serif text-5xl;
+}
+
 .article-content h2 {
   @apply text-3xl font-serif leading-tight mb-4 mt-10;
+  letter-spacing: -0.02em;
 }
 
 .article-content p {
   @apply mb-4 text-lg;
+  font-family: Lora, Georgia, Cambria, serif;
+  line-height: 1.7;
+  letter-spacing: -0.001em;
 }
