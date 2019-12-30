@@ -15,7 +15,7 @@ Those points are made to be succinct, I’ll turn a few points I like into their
 
 A design system is a set of extremely generic components like a `Box` component that can be easily styled only with JSX props. You end up with code like this:
 
-```js
+```jsx
 <Box marginTop="10px" marginBottom="20px" borderBottom="1px solid blue">
   <Flex>
     <Text fontWeight="bold">Hello</Text>
@@ -39,7 +39,7 @@ I could feel the sense of security while developing, knowing that Cypress would 
 
 Requirements and designs will change potentially very often. When you are writing a unit test, keep in mind that they are going to change as often as the code they are testing then ask yourself if you need this unit test. **Unit tests are extra code to maintain so make sure that they are useful, and that you know which bugs you want them to catch.** If your component looks like this:
 
-```js
+```jsx
 const MyComponent = () => {
   return (
     <div>This component only renders the introduction text of my website.</div>
@@ -94,8 +94,7 @@ Don’t make decisions based on other people’s experience of entirely differen
     <br />
     Build your frontend to be easily thrown away.
   </p>
-  &mdash; Baby Wolfman (@sambreed){" "}
-  <a href="https://twitter.com/sambreed/status/1183422226776768512?ref_src=twsrc%5Etfw">
+  &mdash; Baby Wolfman (@sambreed) <a href="https://twitter.com/sambreed/status/1183422226776768512?ref_src=twsrc%5Etfw">
     October 13, 2019
   </a>
 </blockquote>
